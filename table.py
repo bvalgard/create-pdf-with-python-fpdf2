@@ -13,6 +13,7 @@ pdf.set_font('helvetica', '', 16)
 pdf.cell(0,0, 'A cell with some words')
 
 pdf.write_html("""
+  <section>
     <table  width = 50%>
       <thead>
         <tr>
