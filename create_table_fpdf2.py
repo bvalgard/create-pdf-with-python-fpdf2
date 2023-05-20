@@ -1,4 +1,5 @@
 from fpdf import FPDF
+from fpdf.enums import XPos, YPos
 
 class PDF(FPDF):
     def create_table(self, table_data, title='', data_size = 10, title_size=12, align_data='L', align_header='L', cell_width='even', x_start='x_default',emphasize_data=[], emphasize_style=None,emphasize_color=(0,0,0)): 
@@ -119,7 +120,7 @@ class PDF(FPDF):
 
         # add title
         if title != '':
-            self.multi_cell(0, line_height, title, border=0, align='j', ln=3, max_line_height=self.font_size)
+            self.multi_cell(0, line_height, title, border=0, align='j', new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=self.font_size)
             self.ln(line_height) # move cursor back to the left margin
 
         self.set_font(size=data_size)
@@ -134,7 +135,7 @@ class PDF(FPDF):
             if x_start:
                 self.set_x(x_start)
             for datum in header:
-                self.multi_cell(col_width, line_height, datum, border=0, align=align_header, ln=3, max_line_height=self.font_size)
+                self.multi_cell(col_width, line_height, datum, border=0, align=align_header, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=self.font_size)
                 x_right = self.get_x()
             self.ln(line_height) # move cursor back to the left margin
             y2 = self.get_y()
@@ -148,11 +149,11 @@ class PDF(FPDF):
                     if datum in emphasize_data:
                         self.set_text_color(*emphasize_color)
                         self.set_font(style=emphasize_style)
-                        self.multi_cell(col_width, line_height, datum, border=0, align=align_data, ln=3, max_line_height=self.font_size)
+                        self.multi_cell(col_width, line_height, datum, border=0, align=align_data, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=self.font_size)
                         self.set_text_color(0,0,0)
                         self.set_font(style=default_style)
                     else:
-                        self.multi_cell(col_width, line_height, datum, border=0, align=align_data, ln=3, max_line_height=self.font_size) # ln = 3 - move cursor to right with same vertical offset # this uses an object named self
+                        self.multi_cell(col_width, line_height, datum, border=0, align=align_data, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=self.font_size) # ln = 3 - move cursor to right with same vertical offset # this uses an object named self
                 self.ln(line_height) # move cursor back to the left margin
         
         else:
@@ -160,7 +161,7 @@ class PDF(FPDF):
                 self.set_x(x_start)
             for i in range(len(header)):
                 datum = header[i]
-                self.multi_cell(col_width[i], line_height, datum, border=0, align=align_header, ln=3, max_line_height=self.font_size)
+                self.multi_cell(col_width[i], line_height, datum, border=0, align=align_header, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=self.font_size)
                 x_right = self.get_x()
             self.ln(line_height) # move cursor back to the left margin
             y2 = self.get_y()
@@ -180,11 +181,11 @@ class PDF(FPDF):
                     if datum in emphasize_data:
                         self.set_text_color(*emphasize_color)
                         self.set_font(style=emphasize_style)
-                        self.multi_cell(adjusted_col_width, line_height, datum, border=0, align=align_data, ln=3, max_line_height=self.font_size)
+                        self.multi_cell(adjusted_col_width, line_height, datum, border=0, align=align_data, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=self.font_size)
                         self.set_text_color(0,0,0)
                         self.set_font(style=default_style)
                     else:
-                        self.multi_cell(adjusted_col_width, line_height, datum, border=0, align=align_data, ln=3, max_line_height=self.font_size) # ln = 3 - move cursor to right with same vertical offset # this uses an object named self
+                        self.multi_cell(adjusted_col_width, line_height, datum, border=0, align=align_data, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=self.font_size) # ln = 3 - move cursor to right with same vertical offset # this uses an object named self
                 self.ln(line_height) # move cursor back to the left margin
         y3 = self.get_y()
         self.line(x_left,y3,x_right,y3)

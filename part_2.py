@@ -1,4 +1,5 @@
 from fpdf import FPDF
+from fpdf.enums import XPos, YPos
 
 class PDF(FPDF):
     def header(self):
@@ -9,7 +10,7 @@ class PDF(FPDF):
         # Padding
         self.cell(80)
         # Title
-        self.cell(30, 10, 'Title', border=True, ln=1, align='C')
+        self.cell(30, 10, 'Title', border=True, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align='C')
         # Line break
         self.ln(20)
 
@@ -40,6 +41,6 @@ pdf.set_font('helvetica', 'BIU', 16)
 pdf.set_font('times', '', 12)
 
 for i in range(1, 41):
-    pdf.cell(0, 10, f'This is line {i} :D', ln=1)
+    pdf.cell(0, 10, f'This is line {i} :D', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
 pdf.output('pdf_2.pdf')

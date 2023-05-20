@@ -1,4 +1,5 @@
 from fpdf import FPDF
+from fpdf.enums import XPos, YPos
 
 # create FPDF object
 # Layout ('P','L')
@@ -20,7 +21,7 @@ pdf.set_text_color(220,50,50)
 # txt = your text
 # ln (0 False; 1 True - move cursor down to next line)
 # border (0 False; 1 True - add border around cell)
-pdf.cell(120, 100, 'Hello World!', ln=True, border=True)
+pdf.cell(120, 100, 'Hello World!', new_x=XPos.LMARGIN, new_y=YPos.NEXT, border=True)
 
 pdf.set_font('times', '', 12)
 pdf.cell(80, 10, 'Good Bye World!')

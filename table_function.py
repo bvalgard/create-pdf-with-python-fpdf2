@@ -1,4 +1,5 @@
 from fpdf import FPDF
+from fpdf.enums import XPos, YPos
 
 def create_table(table_data, title='', data_size = 10, title_size=12, align_data='L', align_header='L', cell_width='even', x_start='x_default',emphasize_data=[], emphasize_style=None, emphasize_color=(0,0,0)):
     """
@@ -118,7 +119,7 @@ def create_table(table_data, title='', data_size = 10, title_size=12, align_data
 
     # add title
     if title != '':
-        pdf.multi_cell(0, line_height, title, border=0, align='j', ln=3, max_line_height=pdf.font_size)
+        pdf.multi_cell(0, line_height, title, border=0, align='j', new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=pdf.font_size)
         pdf.ln(line_height) # move cursor back to the left margin
 
     pdf.set_font(size=data_size)
@@ -133,7 +134,7 @@ def create_table(table_data, title='', data_size = 10, title_size=12, align_data
         if x_start:
             pdf.set_x(x_start)
         for datum in header:
-            pdf.multi_cell(col_width, line_height, datum, border=0, align=align_header, ln=3, max_line_height=pdf.font_size)
+            pdf.multi_cell(col_width, line_height, datum, border=0, align=align_header, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=pdf.font_size)
             x_right = pdf.get_x()
         pdf.ln(line_height) # move cursor back to the left margin
         y2 = pdf.get_y()
@@ -147,11 +148,11 @@ def create_table(table_data, title='', data_size = 10, title_size=12, align_data
                 if datum in emphasize_data:
                     pdf.set_text_color(*emphasize_color)
                     pdf.set_font(style=emphasize_style)
-                    pdf.multi_cell(col_width, line_height, datum, border=0, align=align_data, ln=3, max_line_height=pdf.font_size)
+                    pdf.multi_cell(col_width, line_height, datum, border=0, align=align_data, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=pdf.font_size)
                     pdf.set_text_color(0,0,0)
                     pdf.set_font(style=default_style)
                 else:
-                    pdf.multi_cell(col_width, line_height, datum, border=0, align=align_data, ln=3, max_line_height=pdf.font_size) # ln = 3 - move cursor to right with same vertical offset # this uses an object named pdf
+                    pdf.multi_cell(col_width, line_height, datum, border=0, align=align_data, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=pdf.font_size) # ln = 3 - move cursor to right with same vertical offset # this uses an object named pdf
             pdf.ln(line_height) # move cursor back to the left margin
     
     else:
@@ -159,7 +160,7 @@ def create_table(table_data, title='', data_size = 10, title_size=12, align_data
             pdf.set_x(x_start)
         for i in range(len(header)):
             datum = header[i]
-            pdf.multi_cell(col_width[i], line_height, datum, border=0, align=align_header, ln=3, max_line_height=pdf.font_size)
+            pdf.multi_cell(col_width[i], line_height, datum, border=0, align=align_header, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=pdf.font_size)
             x_right = pdf.get_x()
         pdf.ln(line_height) # move cursor back to the left margin
         y2 = pdf.get_y()
@@ -179,11 +180,11 @@ def create_table(table_data, title='', data_size = 10, title_size=12, align_data
                 if datum in emphasize_data:
                     pdf.set_text_color(*emphasize_color)
                     pdf.set_font(style=emphasize_style)
-                    pdf.multi_cell(adjusted_col_width, line_height, datum, border=0, align=align_data, ln=3, max_line_height=pdf.font_size)
+                    pdf.multi_cell(adjusted_col_width, line_height, datum, border=0, align=align_data, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=pdf.font_size)
                     pdf.set_text_color(0,0,0)
                     pdf.set_font(style=default_style)
                 else:
-                    pdf.multi_cell(adjusted_col_width, line_height, datum, border=0, align=align_data, ln=3, max_line_height=pdf.font_size) # ln = 3 - move cursor to right with same vertical offset # this uses an object named pdf
+                    pdf.multi_cell(adjusted_col_width, line_height, datum, border=0, align=align_data, new_x=XPos.RIGHT, new_y=YPos.TOP, max_line_height=pdf.font_size) # ln = 3 - move cursor to right with same vertical offset # this uses an object named pdf
             pdf.ln(line_height) # move cursor back to the left margin
     y3 = pdf.get_y()
     pdf.line(x_left,y3,x_right,y3)

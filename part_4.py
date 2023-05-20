@@ -1,4 +1,5 @@
 from fpdf import FPDF
+from fpdf.enums import XPos, YPos
 
 title = '20,000 Leagues Under the Sea'
 
@@ -18,7 +19,7 @@ class PDF(FPDF):
         # Thickness of frame (border)
         self.set_line_width(1)
         # Title
-        self.cell(title_w, 10, title, border=1, ln=1, align='C', fill=1)
+        self.cell(title_w, 10, title, border=1, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align='C', fill=1)
         # Line break
         self.ln(10)
 
@@ -43,7 +44,7 @@ class PDF(FPDF):
         self.set_fill_color(200, 220, 255)
         # Chapter title
         chapter_title = f'Chapter {ch_num} : {ch_title}'
-        self.cell(0, 5, chapter_title, ln=1, fill=1)
+        self.cell(0, 5, chapter_title, new_x=XPos.LMARGIN, new_y=YPos.NEXT, fill=1)
         # line break
         self.ln()
 
@@ -76,8 +77,8 @@ pdf.set_author('Jules Verne')
 
 # Create Links
 website = 'http://www.gutenberg.org/cache/epub/164/pg164.txt'
-ch1_link = pdf.add_link()
-ch2_link = pdf.add_link()
+ch1_link = pdf.add_link(page=1)
+ch2_link = pdf.add_link(page=1)
 
 
 # Set auto page break
@@ -88,9 +89,9 @@ pdf.add_page()
 pdf.image('background_image.png', x = -0.5, w = pdf.w + 1)
 
 # Attach Links
-pdf.cell(0, 10, 'Text Source', ln = 1, link = website)
-pdf.cell(0, 10, 'Chapter 1', ln = 1, link = ch1_link)
-pdf.cell(0, 10, 'Chapter 2', ln = 1, link = ch2_link)
+pdf.cell(0, 10, 'Text Source', new_x=XPos.LMARGIN, new_y=YPos.NEXT, link=website)
+pdf.cell(0, 10, 'Chapter 1', new_x=XPos.LMARGIN, new_y=YPos.NEXT, link=ch1_link)
+pdf.cell(0, 10, 'Chapter 2', new_x=XPos.LMARGIN, new_y=YPos.NEXT, link=ch2_link)
 
 
 
